@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import BottomNav from '../components/BottomNav';
 
 const categories = [
   {
@@ -45,6 +46,7 @@ const categories = [
     image: require('../assets/trứng.png'),
     backgroundColor: '#F1F6FF',
     borderColor: '#C8D6F0',
+    onPress: () => ({ screen: 'Beverages', params: { title: 'Eggs', category: 'Eggs' } }),
   },
   {
     id: 'beverages',
@@ -52,11 +54,19 @@ const categories = [
     image: require('../assets/nước.png'),
     backgroundColor: '#FEF0F7',
     borderColor: '#E6B8CF',
-    onPress: 'Beverages',
+    onPress: () => ({ screen: 'Beverages', params: { title: 'Beverages', category: 'Beverages' } }),
   },
 ];
 
 export default function ExploreScreen({ navigation }) {
+  const handleNavigate = (item) => {
+    if (!item.onPress) {
+      return;
+    }
+    const target = item.onPress();
+    navigation.navigate(target.screen, target.params);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
@@ -64,14 +74,16 @@ export default function ExploreScreen({ navigation }) {
         <Text style={styles.title}>Find Products</Text>
       </View>
 
-      <View style={styles.searchBox}>
+      <TouchableOpacity style={styles.searchBox} activeOpacity={0.85} onPress={() => navigation.navigate('Search', { query: '' })}>
         <Text style={styles.searchIcon}>⌕</Text>
         <TextInput
           placeholder="Search Store"
           placeholderTextColor="#7C7C7C"
           style={styles.searchInput}
+          editable={false}
+          pointerEvents="none"
         />
-      </View>
+      </TouchableOpacity>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.grid}>
         {categories.map((item) => (
@@ -79,7 +91,7 @@ export default function ExploreScreen({ navigation }) {
             key={item.id}
             activeOpacity={0.85}
             style={[styles.card, { backgroundColor: item.backgroundColor, borderColor: item.borderColor }]}
-            onPress={() => item.onPress && navigation.navigate(item.onPress)}
+            onPress={() => handleNavigate(item)}
           >
             <Image source={item.image} style={styles.cardImage} resizeMode="contain" />
             <Text style={styles.cardTitle}>{item.title}</Text>
@@ -87,28 +99,7 @@ export default function ExploreScreen({ navigation }) {
         ))}
       </ScrollView>
 
-      <BottomNav active="Explore" onHomePress={() => navigation.navigate('Home')} />
-    </View>
-  );
-}
-
-function BottomNav({ active, onHomePress }) {
-  const items = [
-    { label: 'Shop', icon: '⌂', onPress: onHomePress },
-    { label: 'Explore', icon: '⌕' },
-    { label: 'Cart', icon: '🛒' },
-    { label: 'Favourite', icon: '♡' },
-    { label: 'Account', icon: '☺' },
-  ];
-
-  return (
-    <View style={styles.bottomNav}>
-      {items.map((item) => (
-        <TouchableOpacity key={item.label} style={styles.navItem} onPress={item.onPress} activeOpacity={0.8}>
-          <Text style={[styles.navIcon, active === item.label && styles.navActive]}>{item.icon}</Text>
-          <Text style={[styles.navLabel, active === item.label && styles.navActive]}>{item.label}</Text>
-        </TouchableOpacity>
-      ))}
+      <BottomNav navigation={navigation} active="Explore" />
     </View>
   );
 }
@@ -175,41 +166,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#181725',
     lineHeight: 22,
-  },
-  bottomNav: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 26,
-    borderTopRightRadius: 26,
-    paddingTop: 14,
-    paddingBottom: 26,
-    paddingHorizontal: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    shadowColor: '#000000',
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: -4 },
-    shadowRadius: 12,
-    elevation: 12,
-  },
-  navItem: {
-    alignItems: 'center',
-    width: 68,
-  },
-  navIcon: {
-    fontSize: 18,
-    color: '#181725',
-    marginBottom: 4,
-  },
-  navLabel: {
-    fontSize: 12,
-    color: '#181725',
-  },
-  navActive: {
-    color: '#53B175',
-    fontWeight: '700',
   },
 });

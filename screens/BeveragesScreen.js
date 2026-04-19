@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Image,
   ScrollView,
@@ -8,53 +8,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { getProductsByCategory } from '../data';
 
-const beverages = [
-  {
-    id: 'diet-coke',
-    title: 'Diet Coke',
-    subtitle: '355ml, Price',
-    price: '$1.99',
-    image: require('../assets/coke.png'),
-  },
-  {
-    id: 'sprite',
-    title: 'Sprite Can',
-    subtitle: '325ml, Price',
-    price: '$1.50',
-    image: require('../assets/sprite.png'),
-  },
-  {
-    id: 'apple-grape',
-    title: 'Apple & Grape\nJuice',
-    subtitle: '2L, Price',
-    price: '$15.99',
-    image: require('../assets/nước táo.png'),
-  },
-  {
-    id: 'orange',
-    title: 'Orange Juice',
-    subtitle: '2L, Price',
-    price: '$15.99',
-    image: require('../assets/nước cam.png'),
-  },
-  {
-    id: 'coca',
-    title: 'Coca Cola Can',
-    subtitle: '325ml, Price',
-    price: '$4.99',
-    image: require('../assets/coca.png'),
-  },
-  {
-    id: 'pepsi',
-    title: 'Pepsi Can',
-    subtitle: '330ml, Price',
-    price: '$4.99',
-    image: require('../assets/pepsi.png'),
-  },
-];
+export default function BeveragesScreen({ navigation, route }) {
+  const category = route.params?.category || 'Beverages';
+  const title = route.params?.title || category;
+  const products = useMemo(() => getProductsByCategory(category), [category]);
 
-export default function BeveragesScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
@@ -62,23 +22,20 @@ export default function BeveragesScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.backIcon}>{'<'}</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>Beverages</Text>
-        <Text style={styles.filterIcon}>≡</Text>
+        <Text style={styles.title}>{title}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Filters', { query: '', filters: { categories: [category], brands: [] } })}>
+          <Text style={styles.filterIcon}>≡</Text>
+        </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.grid}>
-        {beverages.map((item) => (
+        {products.map((item) => (
           <View key={item.id} style={styles.card}>
-            <Image
-              // Thay ảnh sản phẩm đồ uống của bạn tại đây.
-              source={item.image}
-              style={styles.cardImage}
-              resizeMode="contain"
-            />
-            <Text style={styles.cardTitle}>{item.title}</Text>
+            <Image source={item.image} style={styles.cardImage} resizeMode="contain" />
+            <Text style={styles.cardTitle}>{item.name}</Text>
             <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
             <View style={styles.priceRow}>
-              <Text style={styles.price}>{item.price}</Text>
+              <Text style={styles.price}>{item.priceLabel}</Text>
               <TouchableOpacity style={styles.addButton}>
                 <Text style={styles.addButtonText}>+</Text>
               </TouchableOpacity>
