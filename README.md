@@ -63,3 +63,13 @@ Nguyễn Mạn Toàn - 23810310262
 - Thêm sản phẩm vào giỏ hàng
 - Checkout → Xác nhận đơn hàng
 - Xem lịch sử đơn hàng trong Account
+### Ảnh minh họa
+<img width="1284" height="2778" alt="23010310262_09_ Reload_app_vẫn_còn_đơn_hàng" src="https://github.com/user-attachments/assets/d4093285-f93c-4066-8b00-b2fc98b35ce3" />
+<img width="1284" height="2778" alt="23010310262_08_Danh_sách_đơn_hàng" src="https://github.com/user-attachments/assets/8af7aaa8-6d1b-4028-ad4d-398100e44265" />
+<img width="1284" height="2778" alt="23010310262_07_Đặt_hàng_thành_công png" src="https://github.com/user-attachments/assets/20f5a70b-589b-4843-b0ff-f9d2917ffebe" />
+<img width="1284" height="2778" alt="23010310262_06_Thay_đổi_số_lượng" src="https://github.com/user-attachments/assets/123ca403-a034-44b1-a005-d41813875d6e" />
+<img width="1284" height="2778" alt="23010310262_05_Tắt_app→mở_lại_giỏ_vẫn_còn" src="https://github.com/user-attachments/assets/73846a81-1f56-4bc5-b4ec-1d1b2e952303" />
+<img width="1284" height="2778" alt="23010310262_04_Thêm_sản_phẩm_vào_giỏ" src="https://github.com/user-attachments/assets/574f58b8-8851-43a9-981b-9576c3958425" />
+<img width="1284" height="2778" alt="23010310262_03_Logout → quay về login screen" src="https://github.com/user-attachments/assets/4acf784c-58f6-48a1-8e94-988c290c30f3" />
+<img width="1284" height="2778" alt="23810310262_02_Tắt app → mở lại vẫn login" src="https://github.com/user-attachments/assets/349d8071-7614-4650-b2be-1ca72a01c737" />
+<img width="1284" height="2778" alt="23810310262_01_Login_thành_công" src="https://github.com/user-attachments/assets/575aa571-6a05-4b42-acb9-e2208d8bfdd4" />
